@@ -32,6 +32,7 @@ main()
 
 int main() {
 
+    // Welcome message and setting up player & mission objects.
     cout << "***** Welcome to the Cyber Defense Simulator! *****" << endl;
     cout << "Enter your name: ";
     string playerName;
@@ -40,8 +41,13 @@ int main() {
     Player myPlayer;
     myPlayer.SetName(playerName);
 
-    bool playGame = true;
+    /**
+     * Read in missions from missions.txt file. This way, the values of the missions can be easily changed.
+     */
 
+
+    // Main game loop. This allows the player to select the activity they want to do, or quit the game at any time.
+    bool playGame = true;
     while (playGame) {
         cout << "\nMenu:" << endl;
         cout << "1. View Status" << endl;

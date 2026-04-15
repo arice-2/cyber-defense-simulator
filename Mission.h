@@ -12,6 +12,7 @@ class Mission {
       int energyCost;
    
    public:
+      Mission(string n, int d, int rC, int rR, int eC);
       void SetName(const string& name);
       string GetName() const;
 

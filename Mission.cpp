@@ -6,14 +6,14 @@
 using namespace std;
 
 
-// Mutators
-void Mission::SetName(const string& name) {
-    missionName = name;
-}
-
 // Accessors
 string Mission::GetName() const {
     return missionName;
+}
+
+// Mutators
+void Mission::SetName(const string& name) {
+    missionName = name;
 }
 
 

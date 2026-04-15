@@ -15,6 +15,7 @@ class Player {
       int daysUsed;
    
    public:
+      Player(string n);
       void SetName(const string& name);
       void SetEnergy(int energy);
       void SetSkillLevel(int skill);
