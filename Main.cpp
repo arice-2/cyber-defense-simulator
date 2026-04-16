@@ -53,9 +53,9 @@ int main() {
         cout << "1. View Status" << endl;
         cout << "2. Train" << endl;
         cout << "3. Rest" << endl;
-        cout << "4. Shop" << endl;
+        cout << "4. Visit Shop" << endl;
         cout << "5. Attempt Mission" << endl;
-        cout << "6. Exit Simulation" << endl;
+        cout << "6. Quit Simulation" << endl;
         cout << "Choose an action (1-6): ";
         
         int choice;
@@ -68,24 +68,24 @@ int main() {
 
         switch (choice) {
             case 1:
-                myPlayer.PrintInfo();
-                playGame = false;
+                myPlayer.ViewStatus();
+                break;
             case 2:
                 cout << "Training..." << endl;
                 // Implement training logic
-                playGame = false;
+                break;
             case 3:
                 cout << "Resting..." << endl;
                 // Implement resting logic
-                playGame = false;
+                break;
             case 4:
                 cout << "Shopping..." << endl;
                 // Implement shopping logic
-                playGame = false;
+                break;
             case 5:
                 cout << "Attempting mission..." << endl;
                 // Implement mission attempt logic
-                bplayGame = false;
+                break;
             default:
                 cout << "Invalid choice. Please try again." << endl;
         }

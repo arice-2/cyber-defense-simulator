@@ -5,21 +5,45 @@
 #include <string>
 using namespace std;
 
+Player::Player(string n) {
+    playerName = n;
+}
+
 // Accessors
 string Player::GetName() const {
     return playerName;
 }
 
-int Player::GetEnergy() {
+int Player::GetEnergy() const {
     return energy;
 }
 
-int Player::GetSkillLevel() {
+int Player::GetSkillLevel() const {
     return skillLevel;
 }
 
-int Player::GetCredits() {
+int Player::GetCredits() const {
     return credits;
+}
+
+int Player::GetReputation() const {
+    return reputation;
+}
+
+int Player::GetReputation() const {
+    return reputation;
+}
+
+int Player::GetToolLevel() const {
+    return toolLevel;
+}
+
+int Player::GetMissionsCompleted() const {
+    return missionsCompleted;
+}
+
+int Player::GetDaysUsed() const {
+    return daysUsed;
 }
 
 // Mutators
@@ -39,9 +63,31 @@ void Player::SetCredits(int c) {
     credits = c;
 }
 
+void Player::SetReputation(int r) {
+    reputation = r;
+}
+
+void Player::SetToolLevel(int tL) {
+    toolLevel = tL;
+}
+
+void Player::SetMissionsCompleted(int mC) {
+    missionsCompleted = mC;
+}
+
+void Player::SetDaysUsed(int dU) {
+    daysUsed = dU;
+}
+
 // Other methods
-void Player::PrintInfo() const {
+void Player::ViewStatus() const {
    cout << fixed << setprecision(2);
-   cout << "Player's information:" << endl;
+   cout << "***** Player information *****" << endl;
    cout << "Name: " << GetName() << endl;
+   cout << "Energy: " << GetEnergy() << endl;
+   cout << "Skill Level: " << GetSkillLevel() << endl;
+   cout << "Credits: " << GetCredits() << endl;
+   cout << "Reputation: " << GetReputation() << endl;
+   cout << "Current Tool: " << GetToolLevel() << endl;
+   cout << "Missions Completed: " << GetMissionsCompleted() << endl;
 }

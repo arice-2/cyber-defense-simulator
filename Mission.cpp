@@ -16,10 +16,6 @@ void Mission::SetName(const string& name) {
     missionName = name;
 }
 
-
-
-void Mission::PrintInfo() const {
-   cout << fixed << setprecision(2);
-   cout << "Mission's information:" << endl;
-   cout << "Name: " << GetName() << endl;
+void Mission::SetDifficulty(int d) {
+   difficulty = d; 
 }

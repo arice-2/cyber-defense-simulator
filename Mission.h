@@ -5,6 +5,8 @@ using namespace std;
 
 class Mission {
    private:
+
+      // Class variables
       string missionName;
       int difficulty;
       int rewardCredits;
@@ -12,12 +14,22 @@ class Mission {
       int energyCost;
    
    public:
+      // Constructor
       Mission(string n, int d, int rC, int rR, int eC);
-      void SetName(const string& name);
+
+      // Accessors
       string GetName() const;
+      int GetDifficulty() const;
+      int GetRewardCredits() const;
+      int GetRewardReputation() const;
+      int GetEnergyCost() const;
 
-
-      void PrintInfo() const;
+      // Mutators
+      void SetName(const string& name);
+      void SetDifficulty(int n);
+      void SetRewardCredits(int r);
+      void SetRewardReputation(int r);
+      void SetEnergyCost(int e);
    
 };
 

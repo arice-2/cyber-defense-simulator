@@ -20,13 +20,21 @@ class Player {
       void SetEnergy(int energy);
       void SetSkillLevel(int skill);
       void SetCredits(int c);
+      void SetReputation(int r);
+      void SetToolLevel(int tL);
+      void SetMissionsCompleted(int mC);
+      void SetDaysUsed(int dU);
 
       string GetName() const;
-      int GetEnergy();
-      int GetSkillLevel();
-      int GetCredits();
+      int GetEnergy() const;
+      int GetSkillLevel() const;
+      int GetCredits() const;
+      int GetReputation() const;
+      int GetToolLevel() const;
+      int GetMissionsCompleted() const;
+      int GetDaysUsed() const;
 
-      void PrintInfo() const;
+      void ViewStatus() const;
    
 };
 
