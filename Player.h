@@ -33,6 +33,7 @@ class Player {
       int GetToolLevel() const;
       int GetMissionsCompleted() const;
       int GetDaysUsed() const;
+      int GetFinalScore() const;
 
       void ViewStatus() const;
    

@@ -1,0 +1,30 @@
+SSH Public Key Authentication
+10
+20
+10
+8
+=====
+Social Engineering Defense
+15
+40
+15
+10
+=====
+Malware Analysis
+25
+75
+25
+12
+=====
+Anomaly Detection
+50
+110
+40
+16
+=====
+Penetration Testing
+100
+150
+50
+20
++++++

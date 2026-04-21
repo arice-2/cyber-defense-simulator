@@ -30,10 +30,6 @@ int Player::GetReputation() const {
     return reputation;
 }
 
-int Player::GetReputation() const {
-    return reputation;
-}
-
 int Player::GetToolLevel() const {
     return toolLevel;
 }
@@ -44,6 +40,10 @@ int Player::GetMissionsCompleted() const {
 
 int Player::GetDaysUsed() const {
     return daysUsed;
+}
+
+int Player::GetFinalScore() const {
+    return (energy + skillLevel*10 + credits + reputation*20 + toolLevel*2 + missionsCompleted*10);
 }
 
 // Mutators

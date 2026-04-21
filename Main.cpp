@@ -38,6 +38,7 @@ int main() {
     string playerName;
     cin >> playerName;
 
+    // Make player object
     Player myPlayer;
     myPlayer.SetName(playerName);
 
@@ -49,6 +50,16 @@ int main() {
     // Main game loop. This allows the player to select the activity they want to do, or quit the game at any time.
     bool playGame = true;
     while (playGame) {
+
+        if (myPlayer.GetDaysUsed() >= 12) {
+            playGame = false;
+            break;
+        }
+        else if (myPlayer.GetEnergy <= 0) {
+            playGame = false;
+            break;
+        }
+
         cout << "\nMenu:" << endl;
         cout << "1. View Status" << endl;
         cout << "2. Train" << endl;
@@ -61,52 +72,61 @@ int main() {
         int choice;
         cin >> choice;
 
+        // Player quit's the game
         if (choice == 6) {
             cout << "Exiting simulation..." << endl;
             break;
         }
 
+        // Player chooses 1-5, which are some kind of action.
         switch (choice) {
             case 1:
                 myPlayer.ViewStatus();
                 break;
             case 2:
+                int skillIncrease = ((rand() % 20) + 5);
+                int energyDecrease = ((rand() % 10) + 5);
+
                 cout << "Training..." << endl;
-                // Implement training logic
+                cout << "You've bettered your cybersecurity skills!" << endl;
+                cout << "Skill increased by " << (string) skillIncrease << endl;
+                cout << "Energy decreased by " << (string) energyDecrease << endl;
+
+                myPlayer.SetSkillLevel(myPlayer.GetSkillLevel() + skillIncrease);
+                myPlayer.SetEnergy(myPlayer.GetEnergy() - energyDecrease);
+
                 break;
             case 3:
+                int energyIncrease = ((rand() % 10) + 5);
+
                 cout << "Resting..." << endl;
-                // Implement resting logic
+                cout << "Energy increased by " << (string) energyIncrease << endl;
                 break;
             case 4:
                 cout << "Shopping..." << endl;
                 // Implement shopping logic
                 break;
             case 5:
-                cout << "Attempting mission..." << endl;
+                cout << "Available Missions:" << endl;
+                cout << 
                 // Implement mission attempt logic
                 break;
             default:
                 cout << "Invalid choice. Please try again." << endl;
         }
+        myPlayer.DaysUsed(myPlayer.GetDaysUsed() + 1);
     }
 
-/*
-   int userYear;
-   int userPrice;
-   int userCurrentYear;
-   Car myCar;
-      
-   cin >> userYear;
-   cin >> userPrice;
-   cin >> userCurrentYear;
-      
-   myCar.SetModelYear(userYear);
-   myCar.SetPurchasePrice(userPrice);
-   myCar.CalcCurrentValue(userCurrentYear);
-      
-   myCar.PrintInfo();
-*/
+    cout << "***** Final Report: *****" << endl;
+    cout << "Player: " << playerName << endl << endl;
+
+    cout << "Energy: " << myPlayer.GetEnergy() << endl;
+    cout << "Skill: " << myPlayer.GetSkill() << endl;
+    cout << "Credits: " << myPlayer.GetCredits() << endl;
+    cout << "Reputation: " << myPlayer.GetReputation() << endl;
+    cout << "Missions Completed: " << myPlayer.GetMissionsCompleted() << endl;
+    
+    cout << "Final Score: " << myPlayer.GetFinalScore() << endl;
    
    return 0;
 }
