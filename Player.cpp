@@ -7,6 +7,13 @@ using namespace std;
 
 Player::Player(string n) {
     playerName = n;
+    energy = 100;
+    skillLevel = 20;
+    credits = 50;
+    reputation = 0;
+    toolLevel = 0;
+    missionsCompleted = 0;
+    daysUsed = 0;
 }
 
 // Accessors

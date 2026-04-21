@@ -1,5 +1,10 @@
 #include <iostream>
-#include "Car.h"
+#include <fstream>
+#include <cstdlib>
+#include <vector>
+#include "Player.h"
+#include "Mission.h"
+
 using namespace std;
 
 /*
@@ -39,12 +44,35 @@ int main() {
     cin >> playerName;
 
     // Make player object
-    Player myPlayer;
-    myPlayer.SetName(playerName);
+    Player myPlayer(playerName);
+
+    // Initialize tools
+    string toolNames[4] = {"Linux Laptop", "Packet Analyzer", "John the Ripper", "AI Defense Console"};
+    int toolBonus[4] = {2, 11, 13, 19};
+    int toolCost[4] = {15, 25, 45 , 75};
 
     /**
      * Read in missions from missions.txt file. This way, the values of the missions can be easily changed.
      */
+    vector<Mission> missions;
+
+    ifstream inputFile("Missions.txt");
+    if (inputFile.is_open()) {
+        string name;
+        string delim;
+        int dif;
+        int rewardC;
+        int rewardR;
+        int energyC;
+        
+        while (getline(inputFile, name) && name != "+++++") {
+            inputFile >> dif >> rewardC >> rewardR >> energyC;
+            getline(inputFile, delim);
+            getline(inputFile, delim);
+            missions.push_back(Mission(name, dif, rewardC, rewardR, energyC));
+        }
+        inputFile.close();
+    }
 
 
     // Main game loop. This allows the player to select the activity they want to do, or quit the game at any time.
@@ -55,12 +83,12 @@ int main() {
             playGame = false;
             break;
         }
-        else if (myPlayer.GetEnergy <= 0) {
+        else if (myPlayer.GetEnergy() <= 0) {
             playGame = false;
             break;
         }
 
-        cout << "\nMenu:" << endl;
+        cout << "\nDay " << myPlayer.GetDaysUsed()+1 << " of 12" << endl;
         cout << "1. View Status" << endl;
         cout << "2. Train" << endl;
         cout << "3. Rest" << endl;
@@ -80,53 +108,116 @@ int main() {
 
         // Player chooses 1-5, which are some kind of action.
         switch (choice) {
-            case 1:
+            case 1: {
                 myPlayer.ViewStatus();
                 break;
-            case 2:
+            }
+            case 2: {
                 int skillIncrease = ((rand() % 20) + 5);
                 int energyDecrease = ((rand() % 10) + 5);
 
                 cout << "Training..." << endl;
                 cout << "You've bettered your cybersecurity skills!" << endl;
-                cout << "Skill increased by " << (string) skillIncrease << endl;
-                cout << "Energy decreased by " << (string) energyDecrease << endl;
+                cout << "Skill increased by " << skillIncrease << endl;
+                cout << "Energy decreased by " << energyDecrease << endl;
 
                 myPlayer.SetSkillLevel(myPlayer.GetSkillLevel() + skillIncrease);
                 myPlayer.SetEnergy(myPlayer.GetEnergy() - energyDecrease);
-
                 break;
-            case 3:
+            }
+            case 3: {
                 int energyIncrease = ((rand() % 10) + 5);
 
                 cout << "Resting..." << endl;
-                cout << "Energy increased by " << (string) energyIncrease << endl;
+                cout << "Energy increased by " << energyIncrease << endl;
                 break;
-            case 4:
-                cout << "Shopping..." << endl;
-                // Implement shopping logic
+            }
+            case 4: {
+                cout << "+++++ Tool Shop +++++" << endl;
+                for (int i = 0; i < 4; i++) {
+                    cout << i << ". " << toolNames[i] << " (Cost: " << toolCost[i] << ")";
+                    if (myPlayer.GetToolLevel() == i) cout << " [Owned]";
+                    cout << endl;
+                }
+                int choice;
+                cin >> choice;
+                if (choice > myPlayer.GetToolLevel() && choice < 4) {
+                    if (myPlayer.GetCredits() >= toolCost[choice]) {
+                        myPlayer.SetCredits(myPlayer.GetCredits() - toolCost[choice]);
+                        myPlayer.SetToolLevel(choice);
+                        cout << "Purchased " << toolNames[choice] << "!" << endl;
+                    }
+                    else {
+                        cout << "You don't have enough credits." << endl;
+                    }
+                }
                 break;
-            case 5:
+            }
+            case 5: {
                 cout << "Available Missions:" << endl;
-                cout << 
-                // Implement mission attempt logic
+                for (int i = 0; i < missions.size(); i++) {
+                    cout << i << ". " << missions[i].GetName() << endl;
+                }
+                int choice;
+                cin >> choice;
+                if (choice > 0 && choice <= missions.size()) {
+                    Mission m = missions[choice - 1];
+                    if (myPlayer.GetEnergy() >= m.GetEnergyCost()) {
+                        int randomBoost = rand() % 21;
+                        int power = myPlayer.GetSkillLevel() + toolBonus[myPlayer.GetToolLevel()] + randomBoost;
+                        
+                        myPlayer.SetEnergy(myPlayer.GetEnergy() - m.GetEnergyCost());
+                        myPlayer.SetDaysUsed(myPlayer.GetDaysUsed() + 1);
+
+                        if (power >= m.GetDifficulty()) {
+                            cout << "Mission SUCCESS!" << endl;
+                            myPlayer.SetCredits(myPlayer.GetCredits() + m.GetRewardCredits());
+                            myPlayer.SetReputation(myPlayer.GetReputation() + m.GetRewardReputation());
+                            myPlayer.SetMissionsCompleted(myPlayer.GetMissionsCompleted() + 1);
+                            missions.erase(missions.begin() + (choice-1));
+                        }
+                        else {
+                            cout << "Mission FAILURE!" << endl;
+                        }
+                    }
+                    else {
+                        cout << "Not enough energy!" << endl;
+                    }
+                }
+
                 break;
+            }
             default:
                 cout << "Invalid choice. Please try again." << endl;
         }
-        myPlayer.DaysUsed(myPlayer.GetDaysUsed() + 1);
+        myPlayer.SetDaysUsed(myPlayer.GetDaysUsed() + 1);
     }
 
+    // Display final report after game is over
     cout << "***** Final Report: *****" << endl;
     cout << "Player: " << playerName << endl << endl;
 
     cout << "Energy: " << myPlayer.GetEnergy() << endl;
-    cout << "Skill: " << myPlayer.GetSkill() << endl;
+    cout << "Skill: " << myPlayer.GetSkillLevel() << endl;
     cout << "Credits: " << myPlayer.GetCredits() << endl;
     cout << "Reputation: " << myPlayer.GetReputation() << endl;
     cout << "Missions Completed: " << myPlayer.GetMissionsCompleted() << endl;
     
     cout << "Final Score: " << myPlayer.GetFinalScore() << endl;
+
+    // Determine ranks
+    if (myPlayer.GetFinalScore() >= 260) {
+        cout << "Rank: Elite Cyber Defender" << endl;
+    }
+    else if (myPlayer.GetFinalScore() < 260 && myPlayer.GetFinalScore() >= 200) {
+        cout << "Advanced Analyst" << endl;
+    }
+    else if (myPlayer.GetFinalScore() < 200 && myPlayer.GetFinalScore() >= 120) {
+        cout << "Junior Security Specialist" << endl;
+    }
+    else if (myPlayer.GetFinalScore() < 120 && myPlayer.GetFinalScore() >= 0) {
+        cout << "Cybersecurity Intern" << endl;
+    }
    
    return 0;
 }
