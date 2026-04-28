@@ -25,7 +25,7 @@ class Mission {
       int GetEnergyCost() const;
 
       // Mutators
-      void SetName(const string& name);
+      void SetName(string name);
       void SetDifficulty(int n);
       void SetRewardCredits(int r);
       void SetRewardReputation(int r);

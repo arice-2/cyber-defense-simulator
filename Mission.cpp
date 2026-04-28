@@ -5,6 +5,14 @@
 #include <string>
 using namespace std;
 
+// Constructor
+Mission::Mission(string n, int d, int rC, int rR, int eC) {
+    missionName = n;
+    difficulty = d;
+    rewardCredits = rC;
+    rewardReputation = rR;
+    energyCost = eC;
+}
 
 // Accessors
 string Mission::GetName() const {
@@ -28,7 +36,7 @@ int Mission::GetEnergyCost() const {
 }
 
 // Mutators
-void Mission::SetName(const string& name) {
+void Mission::SetName(string name) {
     missionName = name;
 }
 
