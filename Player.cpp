@@ -50,7 +50,7 @@ int Player::GetDaysUsed() const {
 }
 
 int Player::GetFinalScore() const {
-    return (energy + skillLevel*10 + credits + reputation*20 + missionsCompleted*10);
+    return (energy + skillLevel*2 + credits + reputation*2 + missionsCompleted*20);
 }
 
 // Mutators
@@ -89,7 +89,7 @@ void Player::SetDaysUsed(int dU) {
 // Other methods
 void Player::ViewStatus() const {
    cout << fixed << setprecision(2);
-   cout << "***** Player information *****" << endl;
+   cout << "\n***** Player information *****" << endl;
    cout << "Name: " << GetName() << endl;
    cout << "Energy: " << GetEnergy() << endl;
    cout << "Skill Level: " << GetSkillLevel() << endl;
