@@ -108,15 +108,19 @@ int main() {
 
         // Player chooses 1-5, which are some kind of action.
         switch (choice) {
+
+            // View Status
             case 1: {
                 myPlayer.ViewStatus();
                 break;
             }
+
+            // Train
             case 2: {
                 int skillIncrease = ((rand() % 20) + 5);
                 int energyDecrease = ((rand() % 10) + 5);
 
-                cout << "Training..." << endl;
+                cout << "\nTraining..." << endl;
                 cout << "You've bettered your cybersecurity skills!" << endl;
                 cout << "Skill increased by " << skillIncrease << endl;
                 cout << "Energy decreased by " << energyDecrease << endl;
@@ -125,15 +129,19 @@ int main() {
                 myPlayer.SetEnergy(myPlayer.GetEnergy() - energyDecrease);
                 break;
             }
+
+            // Rest
             case 3: {
                 int energyIncrease = ((rand() % 10) + 5);
 
-                cout << "Resting..." << endl;
+                cout << "\nResting..." << endl;
                 cout << "Energy increased by " << energyIncrease << endl;
                 break;
             }
+
+            // Visit shop
             case 4: {
-                cout << "+++++ Tool Shop +++++" << endl;
+                cout << "\n+++++ Tool Shop +++++" << endl;
                 for (int i = 0; i < 4; i++) {
                     cout << i << ". " << toolNames[i] << " (Cost: " << toolCost[i] << ")";
                     if (myPlayer.GetToolLevel() == i) cout << " [Owned]";
@@ -141,10 +149,10 @@ int main() {
                 }
                 int choice;
                 cin >> choice;
-                if (choice > myPlayer.GetToolLevel() && choice < 4) {
+                if (choice < 4) {
                     if (myPlayer.GetCredits() >= toolCost[choice]) {
                         myPlayer.SetCredits(myPlayer.GetCredits() - toolCost[choice]);
-                        myPlayer.SetToolLevel(choice);
+                        myPlayer.SetToolLevel(toolNames[choice-1]);
                         cout << "Purchased " << toolNames[choice] << "!" << endl;
                     }
                     else {
@@ -153,8 +161,10 @@ int main() {
                 }
                 break;
             }
+
+            // Attempt mission
             case 5: {
-                cout << "Available Missions:" << endl;
+                cout << "\nAvailable Missions:" << endl;
                 for (int i = 0; i < missions.size(); i++) {
                     cout << i << ". " << missions[i].GetName() << endl;
                 }
@@ -164,7 +174,7 @@ int main() {
                     Mission m = missions[choice - 1];
                     if (myPlayer.GetEnergy() >= m.GetEnergyCost()) {
                         int randomBoost = rand() % 21;
-                        int power = myPlayer.GetSkillLevel() + toolBonus[myPlayer.GetToolLevel()] + randomBoost;
+                        int power = myPlayer.GetSkillLevel() + randomBoost;
                         
                         myPlayer.SetEnergy(myPlayer.GetEnergy() - m.GetEnergyCost());
                         myPlayer.SetDaysUsed(myPlayer.GetDaysUsed() + 1);

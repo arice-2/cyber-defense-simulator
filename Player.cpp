@@ -11,7 +11,7 @@ Player::Player(string n) {
     skillLevel = 20;
     credits = 50;
     reputation = 0;
-    toolLevel = 0;
+    toolLevel = "Basic Laptop";
     missionsCompleted = 0;
     daysUsed = 0;
 }
@@ -37,7 +37,7 @@ int Player::GetReputation() const {
     return reputation;
 }
 
-int Player::GetToolLevel() const {
+string Player::GetToolLevel() const {
     return toolLevel;
 }
 
@@ -50,7 +50,7 @@ int Player::GetDaysUsed() const {
 }
 
 int Player::GetFinalScore() const {
-    return (energy + skillLevel*10 + credits + reputation*20 + toolLevel*2 + missionsCompleted*10);
+    return (energy + skillLevel*10 + credits + reputation*20 + missionsCompleted*10);
 }
 
 // Mutators
@@ -74,7 +74,7 @@ void Player::SetReputation(int r) {
     reputation = r;
 }
 
-void Player::SetToolLevel(int tL) {
+void Player::SetToolLevel(string tL) {
     toolLevel = tL;
 }
 

@@ -10,7 +10,7 @@ class Player {
       int skillLevel;
       int credits;
       int reputation;
-      int toolLevel;
+      string toolLevel;
       int missionsCompleted;
       int daysUsed;
    
@@ -21,7 +21,7 @@ class Player {
       void SetSkillLevel(int skill);
       void SetCredits(int c);
       void SetReputation(int r);
-      void SetToolLevel(int tL);
+      void SetToolLevel(string tL);
       void SetMissionsCompleted(int mC);
       void SetDaysUsed(int dU);
 
@@ -30,7 +30,7 @@ class Player {
       int GetSkillLevel() const;
       int GetCredits() const;
       int GetReputation() const;
-      int GetToolLevel() const;
+      string GetToolLevel() const;
       int GetMissionsCompleted() const;
       int GetDaysUsed() const;
       int GetFinalScore() const;
