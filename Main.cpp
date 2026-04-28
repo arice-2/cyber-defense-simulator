@@ -143,20 +143,26 @@ int main() {
             case 4: {
                 cout << "\n+++++ Tool Shop +++++" << endl;
                 for (int i = 0; i < 4; i++) {
-                    cout << i << ". " << toolNames[i] << " (Cost: " << toolCost[i] << ")";
-                    if (myPlayer.GetToolLevel() == i) cout << " [Owned]";
+                    cout << i+1 << ". " << toolNames[i] << " (Cost: " << toolCost[i] << ")";
+                    if (myPlayer.GetToolLevel() == toolNames[i]) {
+                        cout << " [Owned]";
+                    }
+                    
                     cout << endl;
                 }
                 int choice;
                 cin >> choice;
-                if (choice < 4) {
+                if (choice < 4 && myPlayer.GetCredits() > toolCost[choice-1]) {
                     if (myPlayer.GetCredits() >= toolCost[choice]) {
                         myPlayer.SetCredits(myPlayer.GetCredits() - toolCost[choice]);
                         myPlayer.SetToolLevel(toolNames[choice-1]);
                         cout << "Purchased " << toolNames[choice] << "!" << endl;
                     }
-                    else {
+                    else if (myPlayer.GetCredits() < toolCost[choice-1]) {
                         cout << "You don't have enough credits." << endl;
+                    }
+                    else if (choice > 4) {
+                        cout << "Invalid option.";
                     }
                 }
                 break;
